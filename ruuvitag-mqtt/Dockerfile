@@ -1,11 +1,14 @@
 ARG BUILD_FROM
 FROM golang:1.15.2-alpine AS builder
 
+ARG BUILD_ARCH
+ARG CLI_VERSION
+
 # Set necessary environment variables needed for our image
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=amd64
+    GOARCH=${BUILD_ARCH}
 
 # Move to working directory /build
 WORKDIR /build
@@ -27,8 +30,6 @@ RUN go build -o main cmd/main.go
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
-ARG BUILD_ARCH
-ARG CLI_VERSION
 ARG BUILD_DATE
 ARG BUILD_REF
 ARG BUILD_VERSION
