@@ -39,9 +39,6 @@ WORKDIR /ruuvitag
 # Copy binary from build to main folder
 COPY --from=builder /build/main ./
 
-# Copy /data from build
-COPY --from=builder /data /data
-
 # Command to run when starting the container
 CMD ["/ruuvitag/main"]
 
