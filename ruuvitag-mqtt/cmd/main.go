@@ -15,7 +15,7 @@ import (
 	"gitlab.com/kirbo/addon-ruuvitag-mqtt/ruuvitag-mqtt/internal/models"
 )
 
-func loadConfigs() {
+func loadConfigs() models.Config {
 	log.Print("Loading configs")
 	jsonFile, err := os.Open("/data/options.json")
 	if err != nil {
@@ -57,7 +57,7 @@ func createClientOptions(clientId string, uri *url.URL) *mqtt.ClientOptions {
 }
 
 func main() {
-	config = loadConfigs()
+	config := loadConfigs()
 
 	uri, err := url.Parse(config.User.Username + ":" + config.User.Password + "@" + config.Host + ":" + config.Port)
 	if err != nil {
