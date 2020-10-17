@@ -27,7 +27,7 @@ RUN go build -o main cmd/main.go
 
 # Reduce end image size by dropping build phases out
 # hadolint ignore=DL3006
-FROM scratch
+FROM alpine
 
 ARG BUILD_DATE
 ARG BUILD_REF
