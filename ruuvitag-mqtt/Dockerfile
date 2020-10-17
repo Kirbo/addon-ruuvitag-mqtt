@@ -23,7 +23,14 @@ COPY internal ./internal
 RUN go build -o main cmd/main.go
 
 # Reduce end image size by dropping build phases out
-FROM alpine:3.12.0
+ARG BUILD_FROM
+FROM $BUILD_FROM
+
+ARG BUILD_ARCH
+ARG CLI_VERSION
+ARG BUILD_DATE
+ARG BUILD_REF
+ARG BUILD_VERSION
 
 # Move to /ruuvitag directory as the place for resulting binary folder
 WORKDIR /ruuvitag
@@ -37,11 +44,6 @@ COPY --from=builder /build/main ./
 
 # Command to run when starting the container
 CMD ["/ruuvitag/main"]
-
-# Build arugments
-ARG BUILD_DATE
-ARG BUILD_REF
-ARG BUILD_VERSION
 
 # Labels
 LABEL \
