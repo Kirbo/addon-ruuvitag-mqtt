@@ -25,11 +25,18 @@ RUN go build -o main cmd/main.go
 # Reduce end image size by dropping build phases out
 FROM alpine:3.12.0
 
-# Move to /dist directory as the place for resulting binary folder
-WORKDIR /dist
+# Move to /ruuvitag directory as the place for resulting binary folder
+WORKDIR /ruuvitag
+
+
+# Copy binary from build to main folder
+COPY --from=builder /build/main ./
+
+# Copy /data from build
+COPY --from=builder /data /data
 
 # Command to run when starting the container
-CMD ["/dist/main"]
+CMD ["/ruuvitag/main"]
 
 # Build arugments
 ARG BUILD_DATE
