@@ -31,7 +31,7 @@ FROM $BUILD_FROM
 
 ARG BUILD_DATE
 ARG BUILD_REF
-ARG BUILD_VERSION
+ARG BUILD_VERSION=0.0.1
 
 # Move to /ruuvitag directory as the place for resulting binary folder
 WORKDIR /ruuvitag
