@@ -1,3 +1,4 @@
+ARG BUILD_FROM
 FROM golang:1.15.2-alpine AS builder
 
 # Set necessary environment variables needed for our image
@@ -23,8 +24,8 @@ COPY internal ./internal
 RUN go build -o main cmd/main.go
 
 # Reduce end image size by dropping build phases out
-ARG BUILD_FROM
-FROM $BUILD_FROM
+# hadolint ignore=DL3006
+FROM ${BUILD_FROM}
 
 ARG BUILD_ARCH
 ARG CLI_VERSION
