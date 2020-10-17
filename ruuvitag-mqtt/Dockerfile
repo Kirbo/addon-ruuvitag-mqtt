@@ -22,40 +22,40 @@ COPY internal ./internal
 # Build the application
 RUN go build -o main cmd/main.go
 
-# # Reduce end image size by dropping build phases out
-# FROM alpine:3.12.0
+# Reduce end image size by dropping build phases out
+FROM alpine:3.12.0
 
-# # Move to /ruuvitag directory as the place for resulting binary folder
-# WORKDIR /ruuvitag
+# Move to /ruuvitag directory as the place for resulting binary folder
+WORKDIR /ruuvitag
 
 
-# # Copy binary from build to main folder
-# COPY --from=builder /build/main ./
+# Copy binary from build to main folder
+COPY --from=builder /build/main ./
 
-# # Copy /data from build
-# # COPY --from=builder /data /data
+# Copy /data from build
+# COPY --from=builder /data /data
 
-# # Command to run when starting the container
-# CMD ["/ruuvitag/main"]
+# Command to run when starting the container
+CMD ["/ruuvitag/main"]
 
-# # Build arugments
-# ARG BUILD_DATE
-# ARG BUILD_REF
-# ARG BUILD_VERSION
+# Build arugments
+ARG BUILD_DATE
+ARG BUILD_REF
+ARG BUILD_VERSION
 
-# # Labels
-# LABEL \
-#     io.hass.name="RuuviTag into MQTT" \
-#     io.hass.description="Broadcast RuuviTag sensors into MQTT" \
-#     io.hass.arch="${BUILD_ARCH}" \
-#     io.hass.type="addon" \
-#     io.hass.version=${BUILD_VERSION} \
-#     maintainer="Kimmo Saari <kirbo@kirbo-designs.com>" \
-#     org.label-schema.description="Broadcast RuuviTag sensors into MQTT" \
-#     org.label-schema.build-date=${BUILD_DATE} \
-#     org.label-schema.name="RuuviTag into MQTT" \
-#     org.label-schema.schema-version="1.0" \
-#     org.label-schema.usage="https://gitlab.com/kirbo/addon-ruuvitag-mqtt/-/blob/master/README.md" \
-#     org.label-schema.vcs-ref=${BUILD_REF} \
-#     org.label-schema.vcs-url="https://gitlab.com/kirbo/addon-ruuvitag-mqtt/" \
-#     org.label-schema.vendor="HomeAssistant add-ons by Kimmo Saari"
+# Labels
+LABEL \
+    io.hass.name="RuuviTag into MQTT" \
+    io.hass.description="Broadcast RuuviTag sensors into MQTT" \
+    io.hass.arch="${BUILD_ARCH}" \
+    io.hass.type="addon" \
+    io.hass.version=${BUILD_VERSION} \
+    maintainer="Kimmo Saari <kirbo@kirbo-designs.com>" \
+    org.label-schema.description="Broadcast RuuviTag sensors into MQTT" \
+    org.label-schema.build-date=${BUILD_DATE} \
+    org.label-schema.name="RuuviTag into MQTT" \
+    org.label-schema.schema-version="1.0" \
+    org.label-schema.usage="https://gitlab.com/kirbo/addon-ruuvitag-mqtt/-/blob/master/README.md" \
+    org.label-schema.vcs-ref=${BUILD_REF} \
+    org.label-schema.vcs-url="https://gitlab.com/kirbo/addon-ruuvitag-mqtt/" \
+    org.label-schema.vendor="HomeAssistant add-ons by Kimmo Saari"
