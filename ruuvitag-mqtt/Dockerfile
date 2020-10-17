@@ -33,7 +33,7 @@ WORKDIR /ruuvitag
 COPY --from=builder /build/main ./
 
 # Copy /data from build
-COPY --from=builder /data /data
+# COPY --from=builder /data /data
 
 # Command to run when starting the container
 CMD ["/ruuvitag/main"]
