@@ -59,14 +59,17 @@ func createClientOptions(clientId string, uri *url.URL) *mqtt.ClientOptions {
 func main() {
 	config := loadConfigs()
 
-	fmt.Printf("config: %+v", config)
+	fmt.Printf("config: %+v\n", config)
 
-	uri, err := url.Parse(config.User.Username + ":" + config.User.Password + "@" + config.Host + ":" + config.Port)
+	uriString := fmt.Sprintf("tcp://%s:%s@%s:%v", config.User.Username, config.User.Password, config.Host, config.Port)
+	fmt.Printf("uriString: %s\n", uriString)
+
+	uri, err := url.Parse(uriString)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("uri: %+v", uri)
+	fmt.Printf("uri: %+v\n", uri)
 
 	client := connect("pub", uri)
 

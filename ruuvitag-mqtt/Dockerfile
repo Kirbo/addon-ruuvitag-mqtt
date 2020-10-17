@@ -1,6 +1,9 @@
 ARG BUILD_FROM=alpine
 FROM golang:1.15.2-alpine AS builder
 
+# Local build:
+# docker build -t ruuvitag-mqtt . && docker run --rm -it -v $PWD/data/options.example.json:/data/options.json ruuvitag-mqtt
+
 ARG BUILD_ARCH
 ARG CLI_VERSION
 
