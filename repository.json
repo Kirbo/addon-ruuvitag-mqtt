@@ -1,0 +1,5 @@
+{
+    "name": "RuuviTag into MQTT",
+    "url": "https://gitlab.com/kirbo/addon-ruuvitag-mqtt",
+    "maintainer": "Kimmo Saari <kirbo@kirbo-designs.com>"
+  }
