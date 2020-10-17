@@ -1,4 +1,3 @@
-ARG BUILD_FROM
 FROM golang:1.15.2-alpine AS builder
 
 ARG BUILD_ARCH
@@ -8,7 +7,7 @@ ARG CLI_VERSION
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=${BUILD_ARCH}
+    GOARCH=amd64
 
 # Move to working directory /build
 WORKDIR /build
@@ -28,7 +27,7 @@ RUN go build -o main cmd/main.go
 
 # Reduce end image size by dropping build phases out
 # hadolint ignore=DL3006
-FROM ${BUILD_FROM}
+FROM scratch
 
 ARG BUILD_DATE
 ARG BUILD_REF
@@ -37,12 +36,11 @@ ARG BUILD_VERSION
 # Move to /ruuvitag directory as the place for resulting binary folder
 WORKDIR /ruuvitag
 
-
 # Copy binary from build to main folder
 COPY --from=builder /build/main ./
 
 # Copy /data from build
-# COPY --from=builder /data /data
+COPY --from=builder /data /data
 
 # Command to run when starting the container
 CMD ["/ruuvitag/main"]
