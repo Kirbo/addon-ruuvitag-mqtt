@@ -1,3 +1,4 @@
+ARG BUILD_FROM=alpine
 FROM golang:1.15.2-alpine AS builder
 
 ARG BUILD_ARCH
@@ -25,7 +26,8 @@ RUN go build -o main cmd/main.go
 
 # Reduce end image size by dropping build phases out
 # hadolint ignore=DL3006
-FROM alpine
+# FROM alpine
+FROM $BUILD_FROM
 
 ARG BUILD_DATE
 ARG BUILD_REF
