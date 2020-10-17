@@ -5,9 +5,7 @@ ARG CLI_VERSION
 
 # Set necessary environment variables needed for our image
 ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
+    CGO_ENABLED=0
 
 # Move to working directory /build
 WORKDIR /build
