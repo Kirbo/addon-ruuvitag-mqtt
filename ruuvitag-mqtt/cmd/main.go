@@ -47,7 +47,7 @@ func connect(clientId string, uri *url.URL) mqtt.Client {
 
 func createClientOptions(clientId string, uri *url.URL) *mqtt.ClientOptions {
 	opts := mqtt.NewClientOptions()
-	opts.AddBroker(fmt.Sprintf("tcp://%s", uri.Host))
+	opts.AddBroker(fmt.Sprintf("mqtt://%s", uri.Host))
 	opts.SetUsername(uri.User.Username())
 	password, _ := uri.User.Password()
 	opts.SetPassword(password)
@@ -61,7 +61,7 @@ func main() {
 
 	fmt.Printf("config: %+v\n", config)
 
-	uriString := fmt.Sprintf("tcp://%s:%s@%s:%v", config.User.Username, config.User.Password, config.Host, config.Port)
+	uriString := fmt.Sprintf("mqtt://%s:%s@%s:%v", config.User.Username, config.User.Password, config.Host, config.Port)
 	fmt.Printf("uriString: %s\n", uriString)
 
 	uri, err := url.Parse(uriString)
