@@ -23,6 +23,7 @@ RUN go mod download
 # Copy the code into the container
 COPY cmd ./cmd
 COPY internal ./internal
+COPY entrypoint.sh ./
 
 # Build the application
 RUN go build -o main cmd/main.go
@@ -36,14 +37,17 @@ ARG BUILD_DATE
 ARG BUILD_REF
 ARG BUILD_VERSION=0.0.1
 
+RUN apk add bluez bluetooth
+
 # Move to /ruuvitag directory as the place for resulting binary folder
 WORKDIR /ruuvitag
 
 # Copy binary from build to main folder
+COPY --from=builder /build/entrypoint.sh ./
 COPY --from=builder /build/main ./
 
 # Command to run when starting the container
-CMD ["/ruuvitag/main"]
+CMD ["/ruuvitag/entrypoint.sh"]
 
 # Labels
 LABEL \
