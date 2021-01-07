@@ -45,23 +45,24 @@ func connect(clientId string, uri *url.URL) mqtt.Client {
 	return client
 }
 
-func createClientOptions(clientId string, uri *url.URL) *mqtt.ClientOptions {
-    host := fmt.Sprintf("Host: %s", uri.Host)
-    fmt.Printf("host: %s\n", host)
-    port := fmt.Sprintf("Port: %s", uri.Port)
-    fmt.Printf("port: %s\n", port)
+func createClientOptions(clientId string, config models.Config) *mqtt.ClientOptions {
+    fmt.Printf("config: %+v\n", config)
 
-    fmt.Printf("uri: %v+\n", uri)
-    fmt.Printf("uri: %+v\n", uri)
+    uriString := fmt.Sprintf("mqtt://%s:%v", config.User.Username, config.User.Password, config.Host, config.Port)
 
-    broker := fmt.Sprintf("tcp://%s:%d", uri.Host, uri.Port)
+    uriString := fmt.Sprintf("mqtt://%s:%v", config.Host, config.Port)
     fmt.Printf("broker: %s\n", broker)
+
+    user := fmt.Sprintf("%s", config.User.Username)
+    fmt.Printf("user: %s\n", user)
+
+    pass := fmt.Sprintf("%s", config.User.Password)
+    fmt.Printf("pass: %s\n", pass)
 
 	opts := mqtt.NewClientOptions()
     opts.AddBroker(broker)
-	opts.SetUsername(uri.User.Username())
-	password, _ := uri.User.Password()
-	opts.SetPassword(password)
+	opts.SetUsername(user)
+	opts.SetPassword(pass)
 	opts.SetClientID(clientId)
 
 	return opts
@@ -70,19 +71,9 @@ func createClientOptions(clientId string, uri *url.URL) *mqtt.ClientOptions {
 func main() {
 	config := loadConfigs()
 
-	fmt.Printf("config: %+v\n", config)
 
-	uriString := fmt.Sprintf("mqtt://%s:%s@%s:%v", config.User.Username, config.User.Password, config.Host, config.Port)
-	fmt.Printf("uriString: %s\n", uriString)
 
-	uri, err := url.Parse(uriString)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("uri: %+v\n", uri)
-
-	client := connect("pub", uri)
+	client := connect("pub", config)
 
 	scanner, err := ruuvitag.OpenScanner(10)
 	if err != nil {
