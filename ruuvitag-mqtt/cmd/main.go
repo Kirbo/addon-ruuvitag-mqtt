@@ -50,6 +50,10 @@ func createClientOptions(clientId string, uri *url.URL) *mqtt.ClientOptions {
     fmt.Printf("host: %s\n", host)
     port := fmt.Sprintf("Port: %s", uri.Port)
     fmt.Printf("port: %s\n", port)
+
+    fmt.Printf("uri: %v+\n", uri)
+    fmt.Printf("uri: %+v\n", uri)
+
     broker := fmt.Sprintf("tcp://%s:%d", uri.Host, uri.Port)
     fmt.Printf("broker: %s\n", broker)
 
