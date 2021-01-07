@@ -51,7 +51,7 @@ func createClientOptions(clientId string, config models.Config) *mqtt.ClientOpti
 	broker := fmt.Sprintf("%s://%s:%d", config.Protocol, config.Host, config.Port)
 	fmt.Printf("broker: %s\n", broker)
 
-	uriString := fmt.Sprintf("tcp://%s:%s@%s:%v", config.User.Username, config.User.Password, config.Host, config.Port)
+	uriString := fmt.Sprintf("%s://%s:%s@%s:%v", config.Protocol, config.User.Username, config.User.Password, config.Host, config.Port)
 	uri, err := url.Parse(uriString)
 	if err != nil {
 		log.Fatal(err)
@@ -66,7 +66,7 @@ func createClientOptions(clientId string, config models.Config) *mqtt.ClientOpti
 	fmt.Printf("password: %s\n", password)
 
 	opts := mqtt.NewClientOptions()
-	opts.AddBroker(broker)
+	opts.AddBroker(uriString)
 	opts.SetUsername(uri.User.Username())
 	opts.SetPassword(password)
 	opts.SetClientID(clientId)
