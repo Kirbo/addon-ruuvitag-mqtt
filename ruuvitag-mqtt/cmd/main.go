@@ -47,7 +47,7 @@ func connect(clientId string, config models.Config) mqtt.Client {
 func createClientOptions(clientId string, config models.Config) *mqtt.ClientOptions {
 	fmt.Printf("config: %+v\n", config)
 
-	broker := fmt.Sprintf("tcp://%s:%v", config.Host, config.Port)
+	broker := fmt.Sprintf("mqtt://%s:%v", config.Host, config.Port)
 	fmt.Printf("broker: %s\n", broker)
 
 	user := fmt.Sprintf("%s", config.User.Username)
