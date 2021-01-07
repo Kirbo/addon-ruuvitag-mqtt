@@ -63,7 +63,6 @@ func createClientOptions(clientId string, config models.Config) *mqtt.ClientOpti
 	fmt.Printf("config.User.Username: %s\n", config.User.Username)
 	fmt.Printf("uri.User.Username(): %s\n", uri.User.Username())
 	fmt.Printf("config.User.Password: %s\n", config.User.Password)
-	fmt.Printf("config.User.Password(): %s\n", config.User.Password())
 	fmt.Printf("password: %s\n", password)
 
 	opts := mqtt.NewClientOptions()
