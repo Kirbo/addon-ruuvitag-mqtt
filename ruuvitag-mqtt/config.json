@@ -10,8 +10,9 @@
   "hassio_api": true,
   "hassio_role": "default",
   "options": {
+    "mqttprotocol": "ws",
     "mqtthost": "core-mosquitto",
-    "mqttport": 1883,
+    "mqttport": 1884,
     "mqttuser": {
       "clientId": "ruuvitag-mqtt",
       "username": "",
@@ -20,6 +21,7 @@
   },
   "schema": {
     "log_level": "list(trace|debug|info|notice|warning|error|fatal)?",
+    "mqttprotocol": "list(ws|tcp|mqtt)",
     "mqtthost": "str",
     "mqttport": "int",
     "mqttuser": {

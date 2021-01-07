@@ -1,9 +1,10 @@
 {
-    "mqtthost": "core-mosquitto",
-    "mqttport": 1883,
-    "mqttuser": {
-      "clientId": "ruuvitag-mqtt",
-      "username": "kirbo",
-      "password": "password"
-    }
+  "mqttprotocol": "ws",
+  "mqtthost": "core-mosquitto",
+  "mqttport": 1884,
+  "mqttuser": {
+    "clientId": "ruuvitag-mqtt",
+    "username": "kirbo",
+    "password": "password"
   }
+}
