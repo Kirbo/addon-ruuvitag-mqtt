@@ -37,17 +37,18 @@ ARG BUILD_DATE
 ARG BUILD_REF
 ARG BUILD_VERSION=0.0.1
 
-RUN apk add bluez
+RUN apk add --no-cache libusb-dev bluez-dev linux-headers eudev-dev
 
 # Move to /ruuvitag directory as the place for resulting binary folder
 WORKDIR /ruuvitag
 
 # Copy binary from build to main folder
-COPY --from=builder /build/entrypoint.sh ./
+# COPY --from=builder /build/entrypoint.sh ./
 COPY --from=builder /build/main ./
 
 # Command to run when starting the container
-CMD ["/ruuvitag/entrypoint.sh"]
+# CMD ["/ruuvitag/entrypoint.sh"]
+CMD ["/ruuvitag/main"]
 
 # Labels
 LABEL \
