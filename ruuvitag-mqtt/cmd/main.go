@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"net/url"
 	"os"
 	"time"
 
@@ -46,21 +45,19 @@ func connect(clientId string, config models.Config) mqtt.Client {
 }
 
 func createClientOptions(clientId string, config models.Config) *mqtt.ClientOptions {
-    fmt.Printf("config: %+v\n", config)
+	fmt.Printf("config: %+v\n", config)
 
-    uriString := fmt.Sprintf("mqtt://%s:%v", config.User.Username, config.User.Password, config.Host, config.Port)
+	broker := fmt.Sprintf("mqtt://%s:%v", config.Host, config.Port)
+	fmt.Printf("broker: %s\n", broker)
 
-    uriString := fmt.Sprintf("mqtt://%s:%v", config.Host, config.Port)
-    fmt.Printf("broker: %s\n", broker)
+	user := fmt.Sprintf("%s", config.User.Username)
+	fmt.Printf("user: %s\n", user)
 
-    user := fmt.Sprintf("%s", config.User.Username)
-    fmt.Printf("user: %s\n", user)
-
-    pass := fmt.Sprintf("%s", config.User.Password)
-    fmt.Printf("pass: %s\n", pass)
+	pass := fmt.Sprintf("%s", config.User.Password)
+	fmt.Printf("pass: %s\n", pass)
 
 	opts := mqtt.NewClientOptions()
-    opts.AddBroker(broker)
+	opts.AddBroker(broker)
 	opts.SetUsername(user)
 	opts.SetPassword(pass)
 	opts.SetClientID(clientId)
