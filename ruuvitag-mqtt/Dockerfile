@@ -37,7 +37,7 @@ ARG BUILD_DATE
 ARG BUILD_REF
 ARG BUILD_VERSION=0.0.1
 
-RUN apk add bluez bluetooth
+RUN apk add bluez
 
 # Move to /ruuvitag directory as the place for resulting binary folder
 WORKDIR /ruuvitag
