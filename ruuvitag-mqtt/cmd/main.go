@@ -30,8 +30,8 @@ func loadConfigs() models.Config {
 	return config
 }
 
-func connect(clientId string, uri *url.URL) mqtt.Client {
-	opts := createClientOptions(clientId, uri)
+func connect(clientId string, config models.Config) mqtt.Client {
+	opts := createClientOptions(clientId, config)
 	client := mqtt.NewClient(opts)
 	token := client.Connect()
 
@@ -70,9 +70,6 @@ func createClientOptions(clientId string, config models.Config) *mqtt.ClientOpti
 
 func main() {
 	config := loadConfigs()
-
-
-
 	client := connect("pub", config)
 
 	scanner, err := ruuvitag.OpenScanner(10)
