@@ -7,7 +7,8 @@ type MQTTUser struct {
 }
 
 type Config struct {
-	Host string   `json:"mqtthost"`
-	Port int32    `json:"mqttport"`
-	User MQTTUser `json:"mqttuser"`
+	Protocol string   `json:"mqttprotocol"`
+	Host     string   `json:"mqtthost"`
+	Port     int32    `json:"mqttport"`
+	User     MQTTUser `json:"mqttuser"`
 }
