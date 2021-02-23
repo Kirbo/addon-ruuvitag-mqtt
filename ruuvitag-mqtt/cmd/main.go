@@ -32,11 +32,11 @@ func loadConfigs() models.Config {
 
 func connect(clientId string, config models.Config) mqtt.Client {
 	opts := createClientOptions(clientId, config)
-    fmt.Printf("create client options done")
+    log.Print("create client options done")
 	client := mqtt.NewClient(opts)
-    fmt.Printf("mqtt new client")
+    log.Print("mqtt new client")
 	token := client.Connect()
-    fmt.Printf("client connect")
+    log.Print("client connect")
 
 	for !token.WaitTimeout(3 * time.Second) {
 	}
@@ -69,29 +69,35 @@ func createClientOptions(clientId string, config models.Config) *mqtt.ClientOpti
 	fmt.Printf("password: %s\n", password)
 
 	opts := mqtt.NewClientOptions()
-    fmt.Printf("new client options")
+    log.Print("new client options")
 	opts.AddBroker(uriString)
-    fmt.Printf("add broker")
+    log.Print("add broker")
 	opts.SetUsername(uri.User.Username())
-    fmt.Printf("set username")
+    log.Print("set username")
 	opts.SetPassword(password)
-    fmt.Printf("set password")
+    log.Print("set password")
 	opts.SetClientID(clientId)
-    fmt.Printf("set client id")
+    log.Print("set client id")
 
-    fmt.Printf("opts defined")
+    log.Print("opts defined")
 
 	return opts
 }
 
 func main() {
+    log.Print("Loading configs...")
 	config := loadConfigs()
+    log.Print("Loaded configs")
+    log.Print("Connecting...")
 	client := connect("pub", config)
+    log.Print("Connected")
 
+    log.Print("Opening scanner...")
 	scanner, err := ruuvitag.OpenScanner(10)
 	if err != nil {
-		log.Fatal(err)
+        log.Fatal(err)
 	}
+    log.Print("Scanner opened")
 
 	output := scanner.Start()
 	for {
@@ -114,7 +120,7 @@ func main() {
 			topicB = topic + "battery"
 			topicH = topic + "humidity"
 			topicP = topic + "pressure"
-			topicT = topic + "t"
+			topicT = topic + "temperature"
 		)
 
 		client.Publish(topicA, 0, true, acceleration)
