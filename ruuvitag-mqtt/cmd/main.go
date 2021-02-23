@@ -32,8 +32,11 @@ func loadConfigs() models.Config {
 
 func connect(clientId string, config models.Config) mqtt.Client {
 	opts := createClientOptions(clientId, config)
+    fmt.Printf("create client options done")
 	client := mqtt.NewClient(opts)
+    fmt.Printf("mqtt new client")
 	token := client.Connect()
+    fmt.Printf("client connect")
 
 	for !token.WaitTimeout(3 * time.Second) {
 	}
@@ -66,10 +69,17 @@ func createClientOptions(clientId string, config models.Config) *mqtt.ClientOpti
 	fmt.Printf("password: %s\n", password)
 
 	opts := mqtt.NewClientOptions()
+    fmt.Printf("new client options")
 	opts.AddBroker(uriString)
+    fmt.Printf("add broker")
 	opts.SetUsername(uri.User.Username())
+    fmt.Printf("set username")
 	opts.SetPassword(password)
+    fmt.Printf("set password")
 	opts.SetClientID(clientId)
+    fmt.Printf("set client id")
+
+    fmt.Printf("opts defined")
 
 	return opts
 }

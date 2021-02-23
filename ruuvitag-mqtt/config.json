@@ -10,7 +10,7 @@
   "hassio_api": true,
   "hassio_role": "default",
   "options": {
-    "mqttprotocol": "ws",
+    "mqttprotocol": "tls",
     "mqtthost": "core-mosquitto",
     "mqttport": 1884,
     "mqttuser": {
@@ -21,7 +21,7 @@
   },
   "schema": {
     "log_level": "list(trace|debug|info|notice|warning|error|fatal)?",
-    "mqttprotocol": "list(ws|tcp|mqtt)",
+    "mqttprotocol": "list(tcp|tls|ws)",
     "mqtthost": "str",
     "mqttport": "int",
     "mqttuser": {
